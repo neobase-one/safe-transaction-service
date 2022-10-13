@@ -44,7 +44,7 @@ Each component of your application would get its own `Dockerfile`_. The rest of 
                 'NAME': 'postgres',
                 'USER': 'postgres',
                 'HOST': 'database',
-                'PORT': 5432,
+                'PORT': 5433,
             }
         }
 

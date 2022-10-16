@@ -13,6 +13,10 @@ SECRET_KEY = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+
+CORS_ORIGIN_WHITELIST = ['http://localhost:8000']
+
 REDIS_URL = env.str("REDIS_URL")
 
 # CACHES

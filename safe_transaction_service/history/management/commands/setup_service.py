@@ -511,26 +511,30 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS("Setting up Safe Contract Addresses"))
         ethereum_client = EthereumClientProvider()
-        ethereum_network = ethereum_client.get_network()
-        if ethereum_network in MASTER_COPIES:
-            self.stdout.write(
-                self.style.SUCCESS(f"Setting up {ethereum_network.name} safe addresses")
-            )
-            self._setup_safe_master_copies(MASTER_COPIES[ethereum_network])
-        if ethereum_network in PROXY_FACTORIES:
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"Setting up {ethereum_network.name} proxy factory addresses"
-                )
-            )
-            self._setup_safe_proxy_factories(PROXY_FACTORIES[ethereum_network])
+        ethereum_network_id = ethereum_client.w3.net.version
+        # if ethereum_network in MASTER_COPIES:
+        #     self.stdout.write(
+        #         self.style.SUCCESS(f"Setting up {ethereum_network.name} safe addresses")
+        #     )
+        #     self._setup_safe_master_copies(MASTER_COPIES[ethereum_network])
+        # if ethereum_network in PROXY_FACTORIES:
+        #     self.stdout.write(
+        #         self.style.SUCCESS(
+        #             f"Setting up {ethereum_network.name} proxy factory addresses"
+        #         )
+        #     )
+        #     self._setup_safe_proxy_factories(PROXY_FACTORIES[ethereum_network])
+        self._setup_safe_master_copies([("0xb8A803f72ba429bB002CD1150d7f6B223F3B6D13", 457, "1.3.0+L2")])
+        self._setup_safe_proxy_factories([("0x9CD4579A6eb598445468d57aAA5321Bd3103374B", 450)])
 
-        if not (
-            ethereum_network in MASTER_COPIES and ethereum_network in PROXY_FACTORIES
-        ):
-            self.stdout.write(
-                self.style.WARNING("Cannot detect a valid ethereum-network")
-            )
+
+
+        # if not (
+        #     ethereum_network in MASTER_COPIES and ethereum_network in PROXY_FACTORIES
+        # ):
+        #     self.stdout.write(
+        #         self.style.WARNING("Cannot detect a valid ethereum-network")
+        #     )
 
     def _setup_safe_master_copies(
         self, safe_master_copies: Sequence[Tuple[str, int, str]]

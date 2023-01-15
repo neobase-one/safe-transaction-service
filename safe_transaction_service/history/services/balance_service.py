@@ -286,7 +286,12 @@ class BalanceService:
             else:
                 fiat_conversion = eth_price * token_eth_value
                 balance_with_decimals = balance.balance / 10**balance.token.decimals
-                fiat_balance = fiat_conversion * balance_with_decimals
+                fiat_balance = (
+                    balance_with_decimals
+                    * self.price_service.get_token_usd_price(
+                        token_address=balance.token_address
+                    )
+                )
 
             balances_with_usd.append(
                 BalanceWithFiat(

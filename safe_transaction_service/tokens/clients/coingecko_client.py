@@ -39,7 +39,7 @@ class CoingeckoClient:
         elif network == EthereumNetwork.FUSE_MAINNET:
             self.asset_platform = "fuse"
         else:
-            self.asset_platform = "ethereum"
+            self.asset_platform = "canto"
 
     @staticmethod
     def supports_network(network: EthereumNetwork):
@@ -142,5 +142,5 @@ class CoingeckoClient:
     def get_gather_usd_price(self) -> float:
         return self.get_price("gather")
 
-    def get_fuse_usd_price(self) -> float:
-        return self.get_price("fuse-network-token")
+    def get_canto_usd_price(self) -> float:
+        return self.get_price("canto")

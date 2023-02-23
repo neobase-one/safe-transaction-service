@@ -287,14 +287,13 @@ class BalanceService:
                 fiat_conversion = eth_price * token_eth_value
                 balance_with_decimals = balance.balance / 10**balance.token.decimals
                 try:
-                    token_usd_price = self.price_service.get_token_usd_price(token_address=balance.token_address)
+                    token_usd_price = self.price_service.get_token_usd_price(
+                        token_address=balance.token_address
+                    )
                 except CannotGetPrice:
                     logger.warning("Cannot get network token usd price", exc_info=True)
                     token_usd_price = 0
-                fiat_balance = (
-                    balance_with_decimals
-                    * token_usd_price
-                )
+                fiat_balance = balance_with_decimals * token_usd_price
 
             balances_with_usd.append(
                 BalanceWithFiat(

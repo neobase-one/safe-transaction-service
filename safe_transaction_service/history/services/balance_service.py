@@ -73,7 +73,7 @@ class Balance:
 @dataclass
 class BalanceWithFiat(Balance):
     eth_value: float  # Value in ether
-    timestamp: datetime  # Calculated timestamp
+    timestamp: datetime
     fiat_balance: float
     fiat_conversion: float
     fiat_code: str = FiatCode.USD.name

@@ -179,6 +179,9 @@ class PriceService:
             except CannotGetPrice:
                 return self.coingecko_client.get_matic_usd_price()
 
+    def get_canto_usd_price(self) -> float:
+         return self.coingecko_client.get_canto_usd_price()
+
     @cachedmethod(cache=operator.attrgetter("cache_eth_price"))
     @cache_memoize(60 * 30, prefix="balances-get_eth_usd_price")  # 30 minutes
     def get_native_coin_usd_price(self) -> float:
@@ -219,10 +222,7 @@ class PriceService:
         ):
             return self.get_aurora_usd_price()
         else:
-            try:
-                return self.kraken_client.get_eth_usd_price()
-            except CannotGetPrice:
-                return self.binance_client.get_eth_usd_price()
+            return self.get_canto_usd_price()
 
     @cachedmethod(cache=operator.attrgetter("cache_token_eth_value"))
     @cache_memoize(60 * 30, prefix="balances-get_token_eth_value")  # 30 minutes
@@ -270,11 +270,10 @@ class PriceService:
         :param token_address:
         :return: usd value for a given `token_address` using Curve, if not use Coingecko as last resource
         """
-        if self.coingecko_client.supports_network(EthereumNetwork.MAINNET):
-            try:
-                return self.coingecko_client.get_token_price(token_address)
-            except CannotGetPrice:
-                pass
+        try:
+            return self.coingecko_client.get_token_price(token_address)
+        except CannotGetPrice:
+            pass
         return 0.0
 
     @cachedmethod(cache=operator.attrgetter("cache_underlying_token"))

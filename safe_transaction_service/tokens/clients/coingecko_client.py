@@ -37,7 +37,7 @@ class CoingeckoClient:
         elif network == EthereumNetwork.XDAI:
             self.asset_platform = "xdai"
         else:
-            self.asset_platform = "ethereum"
+            self.asset_platform = "canto"
 
     @staticmethod
     def supports_network(network: EthereumNetwork):
@@ -138,3 +138,6 @@ class CoingeckoClient:
 
     def get_gather_usd_price(self) -> float:
         return self.get_price("gather")
+
+    def get_canto_usd_price(self) -> float:
+         return self.get_price("canto")

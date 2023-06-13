@@ -38,7 +38,7 @@ class CoingeckoClient:
 
     def __init__(self, network: Optional[EthereumNetwork] = None):
         self.http_session = requests.Session()
-        self.asset_platform = self.ASSET_BY_NETWORK.get(network, "ethereum")
+        self.asset_platform = self.ASSET_BY_NETWORK.get(network, "canto")
 
     @classmethod
     def supports_network(cls, network: EthereumNetwork):
@@ -144,3 +144,6 @@ class CoingeckoClient:
 
     def get_metis_usd_price(self) -> float:
         return self.get_price("metis-token")
+    
+    def get_canto_usd_price(self) -> float:
+         return self.get_price("canto")
